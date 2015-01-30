@@ -4,7 +4,6 @@ import com.google.cloud.dataflow.sdk.options.{PipelineOptions, PipelineOptionsFa
 import com.google.cloud.dataflow.sdk.runners.BlockingDataflowPipelineRunner
 import com.google.cloud.dataflow.sdk.transforms.{Count, DoFn, ParDo}
 import com.google.cloud.dataflow.sdk.values.KV
-// import com.google.cloud.dataflow.sdk.values.KV
 
 object Main extends App {
   //  val options = PipelineOptionsFactory.create()
