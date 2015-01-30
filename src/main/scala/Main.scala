@@ -6,17 +6,11 @@ import com.google.cloud.dataflow.sdk.transforms.{Count, DoFn, ParDo}
 import com.google.cloud.dataflow.sdk.values.KV
 
 object Main extends App {
-  //  val options = PipelineOptionsFactory.create()
+  // It appears we must explicity feed our command-line arguments to the
+  // Pipeline constructor.
   val options = PipelineOptionsFactory.fromArgs(args).as(classOf[PipelineOptions])
-  //  options.setProject("Theia")
-  //  options.setStagingLocation("gs://theia/staging")
-  //  options.setTempLocation("gs://theia/tmp")
-  // options.setRunner(classOf[DataflowPipelineRunner])
-  options.setRunner(classOf[BlockingDataflowPipelineRunner])
 
-  println("Here")
-  println(args.toList.toString)
-  println(options)
+  println("Starting Main")
 
   // Create the Pipeline with default options.
   val p = Pipeline.create(options)
@@ -36,23 +30,18 @@ object Main extends App {
     override def processElement(
       c: DoFn[KV[String, java.lang.Long], String]#ProcessContext
     ) {
-      // Thread.sleep(10000)
       c.output(c.element().getKey() + ": " + c.element().getValue())
     }
   }
 
-  // Apply a root transform, a text file read, to the pipeline.
   p.apply(TextIO.Read.from("gs://dataflow-samples/shakespeare/kinglear.txt"))
-    // Apply a ParDo transform to the PCollection resulting from the text file read
     .apply(ParDo.of(splitIntoWords))
-    // Apply the Count.PerElement transform to the PCollection of text strings resulting from the ParDo
     .apply(Count.perElement[String]())
-    // Apply a ParDo transform to format the PCollection of word counts from Count() for output
     .apply(ParDo.of(formatResults))
-    // Apply a text file write transform to the PCollection of formatted word counts
+    // You will need to change this to a file you can write to.
     .apply(TextIO.Write.to("gs://theia/counts.txt"))
 
   p.run()
 
-  println("Hello from GCETest")
+  println("Main done")
 }
