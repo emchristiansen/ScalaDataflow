@@ -17,7 +17,8 @@ object ScalaDataflowBuild extends Build {
       "-optimize",
       "-unchecked",
       "-deprecation",
-      "-feature"
+      "-feature",
+      "-language:postfixOps"
     )
   )
 
