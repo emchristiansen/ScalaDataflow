@@ -39,7 +39,7 @@ object Main extends App {
     .apply(Count.perElement[String]())
     .apply(ParDo.of(formatResults))
     // You will need to change this to a file you can write to.
-    .apply(TextIO.Write.to("gs://theia/counts.txt"))
+    .apply(TextIO.Write.to("gs://sunny_rain/counts.txt"))
 
   p.run()
 

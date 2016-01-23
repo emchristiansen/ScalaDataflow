@@ -7,12 +7,12 @@ object ScalaDataflowBuild extends Build {
   def extraLibraryDependencies = Seq(
     libraryDependencies ++= Seq(
       // Note this library will quickly become out of date.
-      "com.google.cloud.dataflow" % "google-cloud-dataflow-java-sdk-all" % "0.3.150109"
+			"com.google.cloud.dataflow" % "google-cloud-dataflow-java-sdk-all" % "1.3.0"
     )
   )
 
   def scalaSettings = Seq(
-    scalaVersion := "2.11.5",
+    scalaVersion := "2.11.7",
     scalacOptions ++= Seq(
       "-optimize",
       "-unchecked",
