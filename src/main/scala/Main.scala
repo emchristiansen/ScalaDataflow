@@ -1,8 +1,10 @@
 import com.google.cloud.dataflow.sdk.Pipeline
 import com.google.cloud.dataflow.sdk.io.TextIO
-import com.google.cloud.dataflow.sdk.options.{PipelineOptions, PipelineOptionsFactory}
-import com.google.cloud.dataflow.sdk.runners.BlockingDataflowPipelineRunner
-import com.google.cloud.dataflow.sdk.transforms.{Count, DoFn, ParDo}
+import com.google.cloud.dataflow.sdk.options.PipelineOptions
+import com.google.cloud.dataflow.sdk.options.PipelineOptionsFactory
+import com.google.cloud.dataflow.sdk.transforms.Count
+import com.google.cloud.dataflow.sdk.transforms.DoFn
+import com.google.cloud.dataflow.sdk.transforms.ParDo
 import com.google.cloud.dataflow.sdk.values.KV
 
 object Main extends App {
@@ -28,8 +30,7 @@ object Main extends App {
 
   val formatResults = new DoFn[KV[String, java.lang.Long], String]() {
     override def processElement(
-      c: DoFn[KV[String, java.lang.Long], String]#ProcessContext
-    ) {
+      c: DoFn[KV[String, java.lang.Long], String]#ProcessContext) {
       c.output(c.element().getKey() + ": " + c.element().getValue())
     }
   }
